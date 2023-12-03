@@ -1,10 +1,12 @@
 import random
 import os
+import time 
 
 class Menu ():
 
     def append ():
         global nickname_list
+        global nickname_cantidad
         nickname_list = []
         nickname_cantidad = int(input ("Cuantas personas jugarán?: "))
         for i in range (nickname_cantidad):
@@ -45,19 +47,6 @@ class Menu ():
         
 
 class Partido ():
-    def iniciar_partida():
-
-        global num_random
-        global num_intr
-        num_random = random.randint (1, 10)
-    
-        num_intr = int(input("Inserte un num de 1 al 10: "))
-        if opcion != 1 and opcion != 2 and opcion != 3 and opcion != 4 and opcion != 5 and opcion != 6 and opcion != 7 and opcion != 8 and opcion != 9 and opcion != 10:
-            print ("Por favor, ingresa un número válido.")
-        else:
-            puntos = Partido.ranking(num_intr, num_random)
-            print(f"El número generado fue {num_random}. Obtuviste {puntos} puntos.")
-
     def ranking ():
 
         diferencia = abs(num_intr - num_random)
@@ -96,6 +85,34 @@ class Partido ():
             puntos = 0   # Sin puntos si la diferencia es mayor
 
             return puntos
+        
+    def iniciar_partida():
+
+        global num_random
+        global num_intr
+        num_random = random.randint (1, 10)
+    
+        for i in range(len(nickname_list)):
+            num_intr = int(input(f"{nickname_list[i]}, inserte un num de 1 al 10: "))
+            if opcion != 1 and opcion != 2 and opcion != 3 and opcion != 4 and opcion != 5 and opcion != 6 and opcion != 7 and opcion != 8 and opcion != 9 and opcion != 10:
+                print ("Por favor, ingresa un número válido.")
+            else:
+                print ("Ahora el siguiente...")            
+                
+        puntos = Partido.ranking()
+        print(f"El número generado fue {num_random}.")  
+    
+    
+    def temporizador():
+        print("Temporizador de 20 segundos iniciado.")
+        respuesta = input("Escribe 'saltar' para saltar el temporizador: ")
+        time.sleep(20)
+        if respuesta.lower() == "saltar":
+            print("Temporizador saltado.")
+        else:
+            print("¡Tiempo transcurrido! El temporizador de 20 segundos ha finalizado.")
+        
+        
     
 
 
@@ -105,3 +122,6 @@ if __name__=='__main__':
     Menu.mostrar_menu()
     Partido.iniciar_partida()
     Partido.ranking()
+    #temporizador
+    Partido.temporizador()
+    Menu.mostrar_menu()
