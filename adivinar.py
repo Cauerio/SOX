@@ -4,7 +4,7 @@ import time
 
 class Menu ():
 
-    def append ():
+    def append (self):
         #global nickname_list
         #global nickname_cantidad
         global nickname
@@ -16,7 +16,7 @@ class Menu ():
                 
 
 
-    def mostrar_menu ():
+    def mostrar_menu (self):
 
         os.system('cls' if os.name == 'nt' else 'clear')  # Limpiar pantalla
 
@@ -33,7 +33,7 @@ class Menu ():
             os.system('cls' if os.name == 'nt' else 'clear')
         match (opcion):
             case 1:
-                print (Partido.iniciar_partida()) 
+                print (Partido.iniciar_partida(self)) 
             case 2: 
                     print (fjugadores)
                     volver = input ("Escribe 'exit' para volver: ")
@@ -78,7 +78,7 @@ class Partido ():
 
     #def ranking ():
         
-    def iniciar_partida():
+    def iniciar_partida(self):
         ganar_partida = False
         puntos = 10
         num_random = random.randint (1, 10)
@@ -90,10 +90,13 @@ class Partido ():
                 ganar_partida = True
             else:
                 puntos = puntos -1
-
+                
+                
         print(f"El número generado fue {num_random}.")  
 
         print(f"{nickname} tienes {puntos} puntos.")
+        
+        return puntos
 
         #for i in range(len(nickname_list)):
             #num_intr = int(input(f"{nickname_list[i]}, inserte un num de 1 al 10: "))
@@ -106,7 +109,7 @@ class Partido ():
 
         
     
-    def volver_menu():
+    def volver_menu(self):
         respuesta = input("Escribe 'volver' para volver al menú: ")
         if respuesta.lower() == "volver":
             print ("Estás volviendo al menú...")
