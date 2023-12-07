@@ -35,7 +35,7 @@ class Menu ():
             case 1:
                 print (Partido.iniciar_partida(self)) 
             case 2: 
-                    print (fjugadores)
+                    print (Tratamiento_fichero.read_file(self, archivo = "jugadores.txt"))
                     volver = input ("Escribe 'exit' para volver: ")
                     if volver.lower() == "exit":
                         Menu.mostrar_menu()
@@ -74,9 +74,38 @@ class Menu ():
                 SystemExit        
         
 
-class Partido ():
+class Tratamiento_fichero():
 
-    #def ranking ():
+    def __init__(self):
+        self.archivo =  "jugadores.txt"
+    
+    def write_file(self):
+        fw = open (self.archivo, "w")
+        fw.write (nickname, " tiene ", Partido.iniciar_partida.puntos, " puntos.")
+        fw.write ("\n")
+        fw.close()
+
+    def read_file(self, archivo):
+        global fjugadores
+        fr = open (self.archivo, "r")
+        fjugadores = print (fr.read())
+        fr.close()
+
+class Partido ():
+    def __init__(self):
+        self.puntuacion = {}
+        
+    def add_puntuacion(self, nickname, puntuacion):
+        self.puntuacion[nickname] = puntuacion
+
+    def actualizar_punt(self, nickname, new_puntuacion):
+        if nickname in self.puntuacion and new_puntuacion > self.puntuacion[nickname]:
+            self.puntuacion[nickname] = new_puntuacion
+            print(f"¡Nuevo récord para {nickname} con un puntaje de {new_puntuacion}!")
+
+    def ranking(self):
+        sorted_ranking = sorted(self.puntuacion.items(), key=lambda x: x[1], reverse=True)
+        return {name: rank + 1 for rank, (name, puntuacion) in enumerate(sorted_ranking)}
         
     def iniciar_partida(self):
         ganar_partida = False
@@ -114,26 +143,6 @@ class Partido ():
         if respuesta.lower() == "volver":
             print ("Estás volviendo al menú...")
             time.sleep(3)
-
-class Tratamiento_fichero():
-
-    def __init__(self, archivo):
-        self.archivo = archivo
-    
-    def write_file(self):
-        f = open (self.archivo, "r")
-        f.write (nickname, " tiene ", Partido.iniciar_partida.puntos, " puntos.")
-        f.write ("\n")
-        f.close()
-
-    def read_file(self):
-        global fjugadores
-        f = open (self.archivo, "r")
-        fjugadores = print (f.read())
-        f.close()
-
-
-    
         
 
 if __name__=='__main__':
@@ -143,13 +152,15 @@ if __name__=='__main__':
 
     m = Menu ()
     p = Partido ()
-    t = Tratamiento_fichero ("jugadores.txt")
+    t = Tratamiento_fichero ()
     m.append()
     m.mostrar_menu()
     p.iniciar_partida()
     p.volver_menu()
     t.write_file()
-    t.read_file()
+    t.read_file("jugadores.txt")
+    
+    
 
 
     #p.ranking()
