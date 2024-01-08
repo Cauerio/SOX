@@ -64,7 +64,6 @@ class Menu ():
             case 1:
                 print (Partido.iniciar_partida)
             case 2: 
-                    print (fjugadores)
                     volver = input ("Escribe 'exit' para volver: ")
                     if volver.lower() == "exit":
                         Menu.mostrar_menu()
@@ -76,39 +75,24 @@ class Menu ():
 
 class Tratamiento_fichero():
 
-    def __init__(self):
-        self.archivo =  "jugadores.txt"
+    def __init__(self, archivo):
+        self.archivo = archivo
     
-    def write_file(self):
-        fw = open (self.archivo, "w")
-        fw.write (nickname, " tiene ", Partido.iniciar_partida.puntos, " puntos.")
-        fw.write ("\n")
-        fw.close()
-
-    def read_file(self, archivo):
-        global fjugadores
-        fr = open (self.archivo, "r")
-        fjugadores = print (fr.read())
-        fr.close()
-
-class Partido ():
-    def __init__(self):
-        self.puntuacion = {}
+    def write_file(self, line_to_write):
+        f = open(self.archivo, "a")
+        f.write(line_to_write)
+        f.write("\n")
+        f.close()
         
-    def add_puntuacion(self, nickname, puntuacion):
-        self.puntuacion[nickname] = puntuacion
+    def read_file(self):
+        f = open(self.archivo, "r")
+        print(f.read())
+        f.close()
 
-    def actualizar_punt(self, nickname, new_puntuacion):
-        if nickname in self.puntuacion and new_puntuacion > self.puntuacion[nickname]:
-            self.puntuacion[nickname] = new_puntuacion
-            print(f"¡Nuevo récord para {nickname} con un puntaje de {new_puntuacion}!")
-
-    def ranking(self):
-        sorted_ranking = sorted(self.puntuacion.items(), key=lambda x: x[1], reverse=True)
-        return {name: rank + 1 for rank, (name, puntuacion) in enumerate(sorted_ranking)}
-        
+class Partido ():      
     def iniciar_partida(self):
         ganar_partida = False
+        global puntos
         puntos = 10
         num_random = random.randint (1, 10)
         
@@ -152,13 +136,14 @@ if __name__=='__main__':
 
     m = Menu ()
     p = Partido ()
-    t = Tratamiento_fichero ()
+    t = Tratamiento_fichero ("jugadores.txt")
     m.append()
     m.mostrar_menu()
     p.iniciar_partida()
+    
     p.volver_menu()
-    t.write_file()
-    t.read_file("jugadores.txt")
+    t.write_file("Estas en el top 1 ")
+    t.read_file()
     
     
 
