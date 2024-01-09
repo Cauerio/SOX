@@ -1,3 +1,5 @@
+import time
+
 class Cancion():
 
     def __init__(self, titulo, autor):
@@ -8,13 +10,11 @@ class Cancion():
         eleccion_cancion = input ("Elije una cancion (c1 o c2): ")
         if eleccion_cancion == "c1": 
             c1.dame()
-            c1.dame()
         else:
-            c2.dame()
             c2.dame()
             
     def dame(self):
-        eleccion = input ("Elije lo que quieres mostrar ('titulo', 'autor' o 'ambos')?: ")
+        eleccion = input ("Elije lo que quieres mostrar ('titulo', 'autor' o 'ambos): ")
         if eleccion == "titulo":
             print ("El titulo de la cancion es: ", self.titulo)
         elif eleccion == "autor":

@@ -38,5 +38,5 @@ if __name__ == '__main__':
     p = Persona
     Persona()
     p.generador_dni()
-    p.comprobaciones()
+    p.comprobaciones("a")
     p.mostrar()
