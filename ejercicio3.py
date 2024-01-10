@@ -2,7 +2,7 @@ import random
 
 class Persona():
     def __init__(self):
-        self.edad = Persona.verificar_edad(self)
+        self.edad = Persona.comprobar_edad(self)
         self.sexo = input("Cual es tu genero?('H' o 'M'): ")
         self.dni = Persona.generador_dni(self)
         
@@ -11,7 +11,7 @@ class Persona():
         letra = random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         self.dni = numeros + letra
 
-    def verificar_edad(self):
+    def comprobar_edad(self):
         while True:
             edad = int(input("Cuántos años tienes?: "))
             if edad >= 18:
