@@ -2,30 +2,36 @@ import random
 
 class Persona():
     def __init__(self):
-        self.edad = int(input("Cuantos años tienes?: "))
+        self.edad = Persona.verificar_edad(self)
         self.sexo = input("Cual es tu genero?('H' o 'M'): ")
-        self.dni = p.generador_dni()
+        self.dni = Persona.generador_dni(self)
         
-    def generador_dni():
+    def generador_dni(self):
         numeros = ''.join([str(random.randint(0, 9)) for _ in range(8)])
         letra = random.choice('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-        dni = numeros + letra
- 
+        self.dni = numeros + letra
 
-    def comprobaciones(self):
-        # Comprobacion de la edad
-        while self.edad == False:
-            if self.edad >= 18:
-                self.edad = True
-                return self.edad
+    def verificar_edad(self):
+        while True:
+            edad = int(input("Cuántos años tienes?: "))
+            if edad >= 18:
+                return True
             else:
-                self.edad = False
-                print ("Tienes que ser mayor de edad para seguir")
+                print("Tienes que ser mayor de edad para seguir")
+                continuar = input("Quieres volver a ingresar tu edad? (si o no): ")
+                if continuar != "si":
+                    return False
+
+
+    def comprobacion_sexo(self):
+
         # Comprobacion del sexo
-        if self.sexo != "H" or self.sexo != "M":
+        if self.sexo == "M":
+            self.sexo = "M"
+        elif self.sexo == "H":
             self.sexo = "H"
         else: 
-            self.sexo = self.sexo        
+            self.sexo = "H"        
         
         
     def mostrar(self):
@@ -35,8 +41,7 @@ class Persona():
 
         
 if __name__ == '__main__':
-    p = Persona
-    Persona()
+    p = Persona ()
+    p.comprobacion_sexo()
     p.generador_dni()
-    p.comprobaciones("a")
     p.mostrar()
