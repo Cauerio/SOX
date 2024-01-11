@@ -6,15 +6,11 @@ from datetime import date
 
 class Cuenta():
     #constructor
-    def __init__(self):
-        self.dni = int(input ("Digite su DNI: "))
-        if len(self.dni) == 8 and self.dni[0].isalpha():
-            return self.dni
-        else:
-            print ("Entrada no válida. Asegúrate de ingresar 7 caracteres y que empieze con una letra.")
+    def __init__(self, saldo_total):
+        self.dni = int(input ("Digite su DNI(solo numeros): "))
         self.interes_diario = 0.025
         self.interes_anual = self.interes_diario * 365
-        self.saldo_total = int(input ("Ingrese una cantidad inicial de saldo: "))
+        self.saldo_total = saldo_total
         
     
     def menu(self):
@@ -55,12 +51,15 @@ class Cuenta():
         today = date.today()
         dias_pasados = (today - self.ultima_actualizacion).days if hasattr(self, 'ultima_actualizacion') else 0
         #hasattr verifica si el objeto tiene un atributo.
+        #interes_calc= self.interes_diario * self.saldo_total
+        #interes = self.saldo_total - interes_calc
         interes_acumulado = self.interes_diario * self.saldo_total * dias_pasados #calcula el interés de los dias que no has estado
         self.saldo_total = interes_acumulado
         self.ultima_actualizacion = today    
+        #print("Total saldo post interés diario:",interes)
         
 if __name__=='__main__':
-    c= Cuenta()
+    c= Cuenta(10500)
     c.menu()
     c.actualizar_saldo()
     
